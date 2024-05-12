@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개별 페이지</title>
+</head>
+<body>
+    <h2>개인페이지</h2>
+    제목 : {{ pone.title }}
+    작성날짜 : {{pone.create_at}}
+    내용 : {{ pone.conte  }}
+
+<h1>----------------------------------------------------------</h1>
+<h3>댓글 쓰기</h3>
+    {% for kk in ptow %}
+        댓글 ({{kk.pk}}) = {{kk.cont}}
+        <hr>
+    {% endfor %}
+    
+</body>
+</html>

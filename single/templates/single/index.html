@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대문</title>
+    <link href="{% static 'single/bootstrap4/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/ebbbbe7b35.js" crossorigin="anonymous"></script>
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'single/js/scripts.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'single/assets/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'single/assets/demo/chart-bar-demo.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'single/js/datatables-simple-demo.js' %}"></script>
+        
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="{% static 'single/css/styles.css' %}" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script>
+    function init()
+    {
+        window.navigator.geolocation.getCurrentPosition(current_position);
+    }
+    
+    function current_position(position)
+    {
+        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        
+        var map_options = {
+            center:latlng,zoom:14,
+            mapTypeId:google.maps.MapTypeId.ROADMAP,
+            mapTypeControl:false,
+            navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+        }
+        
+        var map = new google.maps.Map(document.getElementById("google_map"), map_options);
+        
+        var marker = new google.maps.Marker({position:latlng,map:map,title:"You are here!"});
+    }
+    window.addEventListener("load", init);
+    </script>
+</head>
+<body>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="/">Dream Q-</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <button class="btn btn-outline-success" id="btnNavbarSearch" type="button">실종 아동 찾기!</i></button>
+            </div>
+        </form>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <!--옆에 슬라이딩으로 나오는 부분-->
+                    <div class="nav">
+                        <form class="d-flex" method="post" action="/Search/">
+                            {% csrf_token %}
+                            <input class="form-control me-2" type="search" placeholder="Search" name="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                        <ul class="list-group list-group-flush">
+                            {% if searched %}
+                                {% for item in attraction %}
+                                <li class="list-group-item bg-secondary">{{item.title}}</li>
+                                {% endfor %}
+                            {% else %}
+                                <!--여기에 기구들 아이템으로 들어감-->
+                                    {% for aaa in attr %}
+                                        <li class="list-group-item bg-secondary">{{aaa.title}}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-4" style="width: 200px; margin: 0 auto;" >
+                            <button class="btn btn-outline-success" id="btnNavbarSearch" type="button">근처 주차장 찾기!</i></button>
+                        </div>
+                        <div class="col-4" style="width: 200px; margin: 0 auto;">
+                            <button class="btn btn-outline-success" id="btnNavbarSearch" type="button">식당 찾기!</i></button>
+                        </div>
+                        <div class="col-4" style="width: 200px; margin: 0 auto;">
+                            <a href="/recomend"><button class="btn btn-outline-success" id="btnNavbarSearch" type="button">경로 추천 받기!</i></button></a>
+                        </div>
+                    </div>
+                </div>
+                <!--지도 나오는 부분-->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="text-center my-5">
+                            <div id="google_map" style="width:750;height:1000px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    
+    <div class="container">
+            
+    </div>
+    
+    
+
+    
+</body>
+</html>
