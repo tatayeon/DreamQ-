@@ -19,5 +19,9 @@ class Attraction(models.Model):
 
     Limit = models.TextField()
 
+    Latitude = models.FloatField(blank= True, default=37.550254)
+
+    Longitude = models.FloatField(blank= True, default=127.076493)
+
     def __str__(self):
         return f"[{self.title}] {self.type}"

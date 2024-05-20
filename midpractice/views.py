@@ -1,5 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from recomend.models import Attraction
+import requests
+from django.conf import settings
 
 def search(request):
     if request.method == 'POST':

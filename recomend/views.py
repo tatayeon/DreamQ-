@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from .models import Attraction
-
-
 # Create your views here.
 
 def index(request):

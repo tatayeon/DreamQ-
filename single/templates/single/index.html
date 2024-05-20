@@ -17,11 +17,13 @@
         <script src="{% static 'single/assets/demo/chart-bar-demo.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="{% static 'single/js/datatables-simple-demo.js' %}"></script>
-        
+        <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=4juk2m710n"></script>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="{% static 'single/css/styles.css' %}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script>
+        
+    
     function init()
     {
         window.navigator.geolocation.getCurrentPosition(current_position);
@@ -44,6 +46,45 @@
     }
     window.addEventListener("load", init);
     </script>
+        <style>
+    /* 지도위에 로드뷰의 위치와 각도를 표시하기 위한 map walker 아이콘의 스타일 */
+    .MapWalker {position:absolute;margin:-26px 0 0 -51px}
+    .MapWalker .figure {position:absolute;width:25px;left:38px;top:-2px;
+        height:39px;background:url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png) -298px -114px no-repeat}
+    .MapWalker .angleBack {width:102px;height:52px;background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png) -834px -2px no-repeat;}
+    .MapWalker.m0 .figure {background-position: -298px -114px;}
+    .MapWalker.m1 .figure {background-position: -335px -114px;}
+    .MapWalker.m2 .figure {background-position: -372px -114px;}
+    .MapWalker.m3 .figure {background-position: -409px -114px;}
+    .MapWalker.m4 .figure {background-position: -446px -114px;}
+    .MapWalker.m5 .figure {background-position: -483px -114px;}
+    .MapWalker.m6 .figure {background-position: -520px -114px;}
+    .MapWalker.m7 .figure {background-position: -557px -114px;}
+    .MapWalker.m8 .figure {background-position: -2px -114px;}
+    .MapWalker.m9 .figure {background-position: -39px -114px;}
+    .MapWalker.m10 .figure {background-position: -76px -114px;}
+    .MapWalker.m11 .figure {background-position: -113px -114px;}
+    .MapWalker.m12 .figure {background-position: -150px -114px;}
+    .MapWalker.m13 .figure {background-position: -187px -114px;}
+    .MapWalker.m14 .figure {background-position: -224px -114px;}
+    .MapWalker.m15 .figure {background-position: -261px -114px;}
+    .MapWalker.m0 .angleBack {background-position: -834px -2px;}
+    .MapWalker.m1 .angleBack {background-position: -938px -2px;}
+    .MapWalker.m2 .angleBack {background-position: -1042px -2px;}
+    .MapWalker.m3 .angleBack {background-position: -1146px -2px;}
+    .MapWalker.m4 .angleBack {background-position: -1250px -2px;}
+    .MapWalker.m5 .angleBack {background-position: -1354px -2px;}
+    .MapWalker.m6 .angleBack {background-position: -1458px -2px;}
+    .MapWalker.m7 .angleBack {background-position: -1562px -2px;}
+    .MapWalker.m8 .angleBack {background-position: -2px -2px;}
+    .MapWalker.m9 .angleBack {background-position: -106px -2px;}
+    .MapWalker.m10 .angleBack {background-position: -210px -2px;}
+    .MapWalker.m11 .angleBack {background-position: -314px -2px;}
+    .MapWalker.m12 .angleBack {background-position: -418px -2px;}
+    .MapWalker.m13 .angleBack {background-position: -522px -2px;}
+    .MapWalker.m14 .angleBack {background-position: -626px -2px;}
+    .MapWalker.m15 .angleBack {background-position: -730px -2px;}
+</style>
 </head>
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -62,7 +103,6 @@
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
-                    <!--옆에 슬라이딩으로 나오는 부분-->
                     <div class="nav">
                         <form class="d-flex" method="post" action="/Search/">
                             {% csrf_token %}
@@ -72,15 +112,18 @@
                         <ul class="list-group list-group-flush">
                             {% if searched %}
                                 {% for item in attraction %}
-                                <li class="list-group-item bg-secondary">{{item.title}}</li>
+                                <!-- 고유한 id 부여 -->
+                                <li class="list-group-item bg-secondary">
+                                    <button class="to-Target" data-latitude="{{ item.Latitude }}" data-longitude="{{ item.Longitude }}">{{ item.title }}</button>
+                                </li>
                                 {% endfor %}
                             {% else %}
                                 <!--여기에 기구들 아이템으로 들어감-->
-                                    {% for aaa in attr %}
-                                        <li class="list-group-item bg-secondary">{{aaa.title}}</li>
-                                    {% endfor %}
-                                </ul>
+                                {% for aaa in attr %}
+                                    <li class="list-group-item bg-secondary">{{aaa.title}}</li>
+                                {% endfor %}
                             {% endif %}
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -90,13 +133,13 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-4" style="width: 200px; margin: 0 auto;" >
-                            <button class="btn btn-outline-success" id="btnNavbarSearch" type="button">근처 주차장 찾기!</i></button>
+                            <button class="btn btn-outline-success" id="btnNavbarSearch" type="button">놀이기구 선택</i></button>
                         </div>
                         <div class="col-4" style="width: 200px; margin: 0 auto;">
-                            <button class="btn btn-outline-success" id="btnNavbarSearch" type="button">식당 찾기!</i></button>
+                            <button class="btn btn-outline-success" id="btnNavbarSearch" type="button">기구별 혼잡도</i></button>
                         </div>
                         <div class="col-4" style="width: 200px; margin: 0 auto;">
-                            <a href="/recomend"><button class="btn btn-outline-success" id="btnNavbarSearch" type="button">경로 추천 받기!</i></button></a>
+                            <a href="/recomend"><button class="btn btn-outline-success" id="btnNavbarSearch" type="button">기구별 거리</i></button></a>
                         </div>
                     </div>
                 </div>
@@ -104,17 +147,36 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="text-center my-5">
-                            <div id="google_map" style="width:750;height:1000px;"></div>
+                            <div id="map" style="width:100%;height: 680px;"></div>
+                            <script>
+                            var mapOptions = {
+                                center: new naver.maps.LatLng(37.54907, 127.07941),
+                                zoom: 17
+                            };
+                            var map = new naver.maps.Map('map', {
+                                center: new naver.maps.LatLng(37.54907, 127.07941),
+                                zoom: 17
+                            });
+                                $(document).ready(function() {
+                                // class를 사용하여 이벤트 리스너 등록
+                                $(".to-Target").on("click", function(e) {
+                                    e.preventDefault();
+                                    var getLatitude = $(this).data('latitude'); // jQuery data() 메소드 사용
+                                    var getLongitude = $(this).data('longitude');
+                                    
+                                    var targetZoom = new naver.maps.LatLng(getLatitude, getLongitude);
+                                    
+                                    map.setCenter(targetZoom);
+                                    map.setZoom(19, true);
+                                });
+                            });
+                            </script>
                         </div>
                     </div>
                 </div>
+                
             </main>
         </div>
-    </div>
-    
-    
-    <div class="container">
-            
     </div>
     
     
