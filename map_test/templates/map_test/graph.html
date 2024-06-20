@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h3>A~H 기구 좌표</h3>
+
+<script>
+    // 다익스트라 알고리즘 (Dijkstra Algorithm)
+    function dijkstra(start, graph) {
+        const INF = Number.Number.MAX_SAFE_INTEGER;
+    
+      const distance = [];
+        for(let i = 0; i < graph.length; i++) distance[i] = INF;
+    
+        const heap = [];
+        heap.push([0, start]);
+        distance[start] = 0;
+    
+        while(heap.length > 0) {
+            const dist, now = distance.shift();
+            if(distance[now] < dist) continue;
+            for(const i of graph[now]) {
+              const cost = dist + i[1];
+                if(cost < distance[i[0]]) {
+                  distance[i[0]] = cost;
+                    heap.push([cost, i[0]]);
+                    heap.sort((a, b) => a[0]-b[0]);
+              }
+          }
+      }
+  }
+
+
+
+// 플로이드 워셜 알고리즘 (Floyd-Warshall Algorithm)
+  function floyd_warshall(start, graph) {
+    const INF = Number.Number.MAX_SAFE_INTEGER;
+    
+  const distance = [];
+  for(let i = 0; i < graph.length; i++) {
+    distance[i] = [];
+    for(let j = 0; j < graph.length; j++) {
+        if(i === j) distance[i][j] = 0;
+      else distance[i][j] = INF;
+    }
+  }
+    
+    for(let k = 0; k < graph.length; k++)
+    for(let i = 0; i < graph.length; i++)
+      for(let j = 0; j < graph.length; j++)
+        graph[i][j] = Math.min(graph[i][j], graph[i][k] + graph[k][j]);
+}
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+</html>

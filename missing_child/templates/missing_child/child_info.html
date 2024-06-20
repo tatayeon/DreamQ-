@@ -1,0 +1,21 @@
+{% extends 'single/base.html' %}
+
+    {% block main_area %}
+    {% block title_block %}어린이 찾기{% endblock %}
+        한명만 자세히 보여줄 것임
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{ detail.head_image.url }}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h4 class="card-title">{{ detail.title}} </h4><br>
+                  <p class="card-text">{{ detail.content | linebreaksbr }}</p>
+                  <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    {% endblock %}

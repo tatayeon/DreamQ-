@@ -23,6 +23,9 @@ urlpatterns = [
     path("", include("single.urls")),
     path('chat/', include('chat.urls')),
     path('recomend/', include('recomend.urls')),
-    path("Search/", views.search, name='Search')
+    path("Search/", views.search, name='Search'),
+    path("missing_child/", include("missing_child.urls")),
+    path("mpa_select/", include("map_test.urls")),
+    path("detectme/", include("detectme.urls"))
     
 ]

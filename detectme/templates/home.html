@@ -1,0 +1,57 @@
+{% extends 'single/base.html' %}
+{% block title_block %}기구별 혼잡도{% endblock %}
+{% block main_area %}
+    <style>
+        #status {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px;
+        }
+        #status.green {
+            color: green;
+        }
+        #status.orange {
+            color: orange;
+        }
+        #status.red {
+            color: red;
+        }
+    </style>
+
+    <h1>Real-Time Object Detection</h1>
+    <div>
+        <img id="video" src="{% url 'video_feed' %}" width="640" height="480">
+    </div>
+    <div id="status">Loading...</div>
+    <script>
+        function updateStatus(peopleCount) {
+            const statusDiv = document.getElementById('status');
+            if (peopleCount < 3) {
+                statusDiv.innerText = '여유';
+                statusDiv.className = 'green';
+            } else if (peopleCount < 7) {
+                statusDiv.innerText = '보통';
+                statusDiv.className = 'orange';
+            } else {
+                statusDiv.innerText = '혼잡';
+                statusDiv.className = 'red';
+            }
+        }
+
+        async function fetchPeopleCount() {
+            try {
+                const response = await fetch('{% url "get_people_count" %}');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const data = await response.json();
+                updateStatus(data.people_count);
+            } catch (error) {
+                console.error('Fetch error: ', error);
+            }
+        }
+
+        setInterval(fetchPeopleCount, 2000);  // 2초마다 사람 수 업데이트
+    </script>
+{% endblock %}
+

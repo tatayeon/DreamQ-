@@ -1,0 +1,108 @@
+{% extends 'missing_child/base.html' %}
+
+  {% block title %}
+  <title>식당 정보</title>
+  {% endblock %}
+
+
+  {% block header_title %}
+    식당
+  {% endblock %}
+
+
+  {% block main_area %}
+
+
+  <div style="text-align: center;"><p>
+    <h3>
+      <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">전체</a>&nbsp;&nbsp;
+      <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">한식</a>&nbsp;&nbsp;
+      <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">중식</a>&nbsp;&nbsp;
+      <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">양식</a>&nbsp;&nbsp;
+      <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">카페</a>&nbsp;&nbsp;
+      <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">간식</a>
+    </h3>
+  </p> 
+  </div><br><br>
+
+
+    <nav>
+      
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for rest in rest %}
+        <div class="col">
+          <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              
+              <a href="{{ rest.get_absolute_url }}"><h5 class="card-title">{{ rest.name }}</h5></a>
+              
+              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+           
+          </div>
+        </div>
+     {% endfor %}    
+
+      </div> 
+    </nav> 
+     
+    
+        <!-- <div class="col">
+          <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+          </div>
+        </div>
+       -->
+
+    <!-- <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div> -->
+
+
+    {% endblock %}

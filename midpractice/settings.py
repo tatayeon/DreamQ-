@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     "channels",
     "chat",
     "recomend",
+    "map_test",
+    "missing_child",
+    "parking_lot",
+    "restaurant",
+    "detectme",
 ]
 
 MIDDLEWARE = [

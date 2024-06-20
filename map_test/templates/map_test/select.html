@@ -1,0 +1,218 @@
+{% extends 'single/base.html' %}
+{% block title_block %}코스선정{% endblock %}
+    {% block main_area %}
+    <div class="imgmap_css_container" id="mapImage">
+        <img src='/static/image/nmap_h02.jpg' height="540px" width="50%"> 
+        <a style="position: absolute; top: 214px; left: 88px; width: 91px; height: 61px;" title="정문" ><em></em></a>
+        <a style="position: absolute; top: 66px; left: 240px; width: 77px; height: 46px;"  title="키즈오토파크" ><em></em><button id="kids-btn">키즈오토파크</button></a>
+        <a style="position: absolute; top:420px; left: 187px; width: 90px; height: 69px;" title="어린이회관"><em></em><button id="child-btn">어린이회관</button></a>
+        <a style="position: absolute; top: 309px; left: 279px; width: 43px; height: 41px;" title="회관문 위 분수"><em></em><button id="pond-btn">생태연못</button></a>
+        <a style="position: absolute; top: 64px; left: 342px; width: 60px; height: 29px;" title="풋살장"><em></em><button id="futsal-btn">풋살장</button></a>
+        <a style="position: absolute; top: 420px; left: 390px; width: 90px; height: 32px;" title="물개" ><em></em><button id="circus-btn">동물공연장</button></a>
+        <a style="position: absolute; top: 222px; left: 447px; width: 89px; height: 88px;" title="동물원" ><em></em><button id='zoo-btn'>동물원</button></a>
+        <a style="position: absolute; top: 267px; left: 558px; width: 48px; height: 55px;" title="축구장"  ><em></em><button id="soccer-btn">축구장</button></a>
+        <a style="position: absolute; top: 343px; left: 586px; width: 83px; height: 27px;" title="구의문 농구장 (text)" ><em></em><button id="goo-btn">구의문 농구장</button></a>
+        <a style="position: absolute; top: 142px; left: 647px; width: 64px; height: 27px;" title="후문 농구장(text)" ><em></em><button id="ba-btn">후문농구장</button></a>
+        <a style="position: absolute; top: 73px; left: 530px; width: 71px; height: 63px;"  title="놀이공원"><em></em><button id="nori-btn">놀이공원</button></a>
+
+<!-- Created by Online Image Map Editor (http://www.maschek.hu/imagemap/index) -->
+    </div>
+
+    <div>
+        <h2>선택한 장소</h2>
+        <hr>
+        <div id="select-div"></div>
+        <hr>
+    </div>
+
+    <button>선택 완료</button>
+    <script>
+        // 동물원 버튼
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('zoo-btn');  // 버튼 아이디
+            var zooDiv = document.getElementById('select-div');     // select-div 안에 선택한 거 넣으려고 필요함
+            var locationStatus = document.getElementById('location-status');    // 상태 - 지금은 안씀
+
+            toggleButton.addEventListener('click', function() {
+                // .location 클래스를 가진 요소를 생성하거나 제거
+                var existingLocationElement = document.querySelector('.zoo');    // *일치해야함
+
+                if (existingLocationElement) {
+                    // .location 요소가 존재하면 제거
+                    existingLocationElement.remove();
+                } else {
+                    // .location 요소가 존재하지 않으면 생성
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'zoo';        // *일치해야함
+                    newLocationElement.textContent = '동물원';
+                    zooDiv.appendChild(newLocationElement);     // select-div 안에 생성
+                }
+
+               
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('kids-btn'); 
+            var kidsDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.kids');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'kids';       
+                    newLocationElement.textContent = '키즈오토파크';
+                    kidsDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('child-btn'); 
+            var childDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.child');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'child';       
+                    newLocationElement.textContent = '어린이회관';
+                    childDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('pond-btn'); 
+            var pondDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.pond');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'pond';       
+                    newLocationElement.textContent = '생태연못';
+                    pondDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('futsal-btn'); 
+            var futsalDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.futsal');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'futsal';       
+                    newLocationElement.textContent = '풋살장';
+                    futsalDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('circus-btn'); 
+            var circusDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.circus');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'circus';       
+                    newLocationElement.textContent = '동물공연장';
+                    circusDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('soccer-btn'); 
+            var soccerDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.soccer');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'soccer';       
+                    newLocationElement.textContent = '축구장';
+                    soccerDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('goo-btn'); 
+            var gooDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.goo');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'goo';       
+                    newLocationElement.textContent = '구의문 농구장';
+                    gooDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('ba-btn'); 
+            var baDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.ba');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'ba';       
+                    newLocationElement.textContent = '후문농구장';
+                    baDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButton = document.getElementById('nori-btn'); 
+            var noriDiv = document.getElementById('select-div');
+
+            toggleButton.addEventListener('click', function() {
+                var existingLocationElement = document.querySelector('.nori');    
+
+                if (existingLocationElement) {
+                    existingLocationElement.remove();
+                } else {
+                    var newLocationElement = document.createElement('div');
+                    newLocationElement.className = 'nori';       
+                    newLocationElement.textContent = '놀이공원';
+                    noriDiv.appendChild(newLocationElement);
+                }
+            });
+        });
+    </script>
+    {% endblock %}
+
